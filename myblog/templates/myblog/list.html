@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mr-auto col-lg-9">
+        <div class="row ">
+            {% for obj in object_list %}
+            <div class="card mb-3 mr-auto" style="max-width: 300px;">
+                <!-- 540 -->
+                <div class="row no-gutters">
+                  <div class="col-md-12">
+                    <img src="{{obj.thumbnail.url}}" class="card-img img-responsive" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{obj}}</h5>
+                      <p class="card-text">{{obj.snippet}}</p>
+                      <p class="card-text"><small class="text-muted">by {{obj.author}}</small></p>
+                      <a href="{% url 'myblog:detail' obj.slug %}" class="btn btn-primary" >Read more</a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 %}
+            </div><div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

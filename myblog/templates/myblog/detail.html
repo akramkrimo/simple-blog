@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-9 mr-auto  mt-5">
+                <img src=" {{object.thumbnail.url}} " alt="image doesn't exist" style="width: 100%;">
+                <h1 class="mx-auto" style="text-align: center;">
+                    {{object.title}}
+                </h1>
+                <p class="col-10 mx-auto ">
+                    {{object.content}}
+                </p>
+            </div>
+            <div class="col-3">
+                <h1>this is the ad area, add text, banner, links,...</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <form method="POST" class="col-5 mb-5">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit" class="btn btn-primary"> add comment </button>
+        </form>
+        {% for comment in object.comment_set.all %}
+        <div class="alert alert-info" role="alert">
+          {{comment.text}} .... written by {{comment.user}} on ..... {{comment.date}}
+        </div>
+        {% if comment.replies%}
+        {% for reply in comment.replies.all %}
+        <div class="alert alert-default" role="alert">
+          Reply : {{reply.text}} .... replyed by {{reply.user}} on ..... {{reply.date}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!-- <button name="reply" value="{{comment.id}}"type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Reply</button> -->
+        {% include 'reply_form.html' %}
+      {% endfor %}
+        </div>
+
+{% endblock %}

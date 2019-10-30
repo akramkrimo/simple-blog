@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" class="col-6 mx-auto" enctype="multipart/form-data"> 
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" value="submit" class="btn btn-primary" name="button">submit</button>
+    </form>
+{% endblock %}
